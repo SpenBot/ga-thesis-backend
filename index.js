@@ -11,27 +11,20 @@ server.listen(4000, () => {
     console.log("\n\tServer active. Listening on port 4000\n")
 })
 
-// Schema & Model
-const Schema = require('./db/schema.js')
-const Message = Schema.Message
-
-
-
 
 // Socket.io Connection
 io.on('connection', (socket) => {
-
   console.log('\n\tUser Connected')
+  socket.on('chat message', (msg) => io.emit('chat message', msg))
 
-  Message.find({}).then(response => {
-    const messages = response.map(message => message.body)
-    io.emit('initial messages', messages)
+  socket.on('attacked health', (hp) => {
+    io.emit('attacked health', hp)
+    // console.log(hp)
   })
 
-  socket.on('chat message', (msg, usn) => {
-    io.emit('chat message', msg, usn)
-    Message.create({body: msg, username: usn})
-    console.log(`No clue ${msg} + ${usn}`)
+  socket.on('healed health', (hp) => {
+    io.emit('healed health', hp)
+    // console.log(hp)
   })
 
 
