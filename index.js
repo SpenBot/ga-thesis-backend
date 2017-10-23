@@ -12,20 +12,47 @@ server.listen(4000, () => {
 })
 
 
+// Schema & Model
+const Schema = require('./db/schema.js')
+const User = Schema.User
+
+
+
+
+
+
+
+
 // Socket.io Connection
 io.on('connection', (socket) => {
   console.log('\n\tUser Connected')
+
   socket.on('chat message', (msg) => io.emit('chat message', msg))
+
+
+
+  User.find({}).limit(20).then(response => {
+    const users = response.map(user => user.name)
+    io.emit('initial users', user)
+  })
+
+
+  socket.on('new user', (user) => {
+    io.emit('new user', user)
+    User.create({name: user})
+  })
+
+
+
 
   socket.on('attacked health', (hp) => {
     io.emit('attacked health', hp)
-    // console.log(hp)
   })
 
   socket.on('healed health', (hp) => {
     io.emit('healed health', hp)
-    // console.log(hp)
   })
+
 
 
   socket.on('disconnect', () => console.log('\n\tUser Disconnected'))
