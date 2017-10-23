@@ -26,14 +26,13 @@ io.on('connection', (socket) => {
   Message.find({}).then(response => {
     const messages = response.map(message => message.body)
     io.emit('initial messages', messages)
-    console.log(Messages = `${messages}`)
   })
 
-  socket.on('chat message', (msg) => {
-    io.emit('chat message', msg)
-    Message.create({body: msg})
+  socket.on('chat message', (msg, usn) => {
+    io.emit('chat message', msg, usn)
+    Message.create({body: msg, username: usn})
+    console.log(`No clue ${msg} + ${usn}`)
   })
-
 
 
   socket.on('disconnect', () => console.log('\n\tUser Disconnected'))

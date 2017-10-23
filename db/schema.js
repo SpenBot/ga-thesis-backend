@@ -11,7 +11,8 @@ db.once('open', () => { console.log('\n\tDatabase connection successful.\n') })
 const Schema = mongoose.Schema
 
 const MessageSchema = new Schema({
-  body: { type: String, unique: false, required: true }
+  body: { type: String, unique: false, required: true },
+  username: { type: String, unique: false, required: true },
 })
 
 // Defining the models
