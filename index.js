@@ -52,6 +52,9 @@ io.on('connection', (socket) => {
     io.emit('login player1', player1)
   })
 
+  socket.on('login player2', (player2) => {
+    io.emit('login player2', player2)
+  })
 
 
 
