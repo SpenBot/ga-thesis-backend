@@ -14,7 +14,8 @@ server.listen(4000, () => {
 
 // Schema & Model
 const Schema = require('./db/schema.js')
-const User = Schema.User
+const Player1 = Schema.Player1
+const Player2 = Schema.Player2
 
 
 
@@ -31,17 +32,21 @@ io.on('connection', (socket) => {
 
 
 
-  User.find({}).limit(20).then(response => {
-    const users = response.map(user => user.name)
-    io.emit('initial users', user)
+  // User.find({}).limit(20).then(response => {
+  //   const users = response.map(user => user.name)
+  //   io.emit('initial users', user)
+  // })
+
+
+  socket.on('new player1', (player1) => {
+    io.emit('new player1', player1)
+    Player1.create({name: player1})
   })
 
-
-  socket.on('new user', (user) => {
-    io.emit('new user', user)
-    User.create({name: user})
+  socket.on('new player2', (player2) => {
+    io.emit('new player2', player2)
+    Player2.create({name: player2})
   })
-
 
 
 
