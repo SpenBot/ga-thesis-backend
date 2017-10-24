@@ -32,10 +32,7 @@ io.on('connection', (socket) => {
 
 
 
-  // User.find({}).limit(20).then(response => {
-  //   const users = response.map(user => user.name)
-  //   io.emit('initial users', user)
-  // })
+
 
 
   socket.on('new player1', (player1) => {
@@ -47,6 +44,16 @@ io.on('connection', (socket) => {
     io.emit('new player2', player2)
     Player2.create({name: player2})
   })
+
+
+
+
+  socket.on('login player1', (player1) => {
+    io.emit('login player1', player1)
+  })
+
+
+
 
 
 
