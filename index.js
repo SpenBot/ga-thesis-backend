@@ -13,9 +13,9 @@ server.listen(4000, () => {
 
 
 // Schema & Model
-const Schema = require('./db/schema.js')
-const Player1 = Schema.Player1
-const Player2 = Schema.Player2
+// const Schema = require('./db/schema.js')
+// const Player1 = Schema.Player1
+// const Player2 = Schema.Player2
 
 
 
@@ -32,29 +32,17 @@ io.on('connection', (socket) => {
 
 
 
-
-
-
+// listening for Player Log-In //
   socket.on('new player1', (player1) => {
     io.emit('new player1', player1)
-    Player1.create({name: player1})
+    // Player1.create({name: player1})
   })
 
   socket.on('new player2', (player2) => {
     io.emit('new player2', player2)
-    Player2.create({name: player2})
+    // Player2.create({name: player2})
   })
 
-
-
-
-  socket.on('login player1', (player1) => {
-    io.emit('login player1', player1)
-  })
-
-  socket.on('login player2', (player2) => {
-    io.emit('login player2', player2)
-  })
 
 
 
