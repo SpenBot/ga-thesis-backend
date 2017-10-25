@@ -48,6 +48,13 @@ io.on('connection', (socket) => {
     io.emit(`new Turn`, newTurn)
   })
 
+  socket.on('new P1 HP', (newP1Health) => {
+    io.emit(`new P1 HP`, newP1Health)
+  })
+
+  socket.on('new P2 HP', (newP2Health) => {
+    io.emit(`new P2 HP`, newP2Health)
+  })
 
 
   // socket.on('attacked health', (hp) => {
