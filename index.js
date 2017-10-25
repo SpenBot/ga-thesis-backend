@@ -44,17 +44,19 @@ io.on('connection', (socket) => {
   })
 
 
-
-
-
-
-  socket.on('attacked health', (hp) => {
-    io.emit('attacked health', hp)
+  socket.on('new Turn', (newTurn) => {
+    io.emit(`new Turn`, newTurn)
   })
 
-  socket.on('healed health', (hp) => {
-    io.emit('healed health', hp)
-  })
+
+
+  // socket.on('attacked health', (hp) => {
+  //   io.emit('attacked health', hp)
+  // })
+  //
+  // socket.on('healed health', (hp) => {
+  //   io.emit('healed health', hp)
+  // })
 
 
 
