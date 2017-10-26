@@ -15,14 +15,13 @@ server.listen(4000, () => {
 })
 
 
-// Schema & Model
-// const Schema = require('./db/schema.js')
-// const Player1 = Schema.Player1
-// const Player2 = Schema.Player2
 
 
 
 
+app.get("/", (req, res) => {
+  res.send("Hello Monkey")
+})
 
 
 
