@@ -10,7 +10,8 @@ const http = require('http')
 const socketIO = require('socket.io')
 const server = http.createServer(app)
 const io = socketIO.listen(server)
-server.listen(process.env.PORT || 4000, () => {
+// server.listen(process.env.PORT || 4000, () => {
+server.listen(4000, () => {
     console.log("\n\tServer active. Listening on port 4000\n")
 })
 
@@ -26,46 +27,77 @@ app.get("/", (req, res) => {
 
 
 
-// Socket.io Connection
+/////////////// SOCKET CONNECTION //////////////////////////////////
+////////////////////////////////////////////////////////////////////
+
 io.on('connection', (socket) => {
   console.log('\n\tUser Connected')
+
+/////////////// CHAT MESSAGES //////////////////////////////////////
 
   socket.on('chat message', (msg) => io.emit('chat message', msg))
 
 
+/////////////// PLAYERS ////////////////////////////////////////////
 
-// listening for Player Log-In //
   socket.on('new player1', (player1) => {
     io.emit('new player1', player1)
-    // Player1.create({name: player1})
   })
-
   socket.on('new player2', (player2) => {
     io.emit('new player2', player2)
-    // Player2.create({name: player2})
   })
-
 
   socket.on('new Turn', (newTurn) => {
     io.emit(`new Turn`, newTurn)
   })
 
-  socket.on('new P1 HP', (newP1Health) => {
-    io.emit(`new P1 HP`, newP1Health)
+/////////////// SLAP ///////////////////////////////////////////////
+
+  socket.on('P1 slaps', (slapP2Health, slapP1Coin, slapP1OP) => {
+    io.emit(`P1 slaps`, slapP2Health, slapP1Coin, slapP1OP)
   })
 
-  socket.on('new P2 HP', (newP2Health) => {
-    io.emit(`new P2 HP`, newP2Health)
+  socket.on('P2 slaps', (slapP1Health, slapP2Coin, slapP2OP) => {
+    io.emit(`P2 slaps`, slapP1Health, slapP2Coin, slapP2OP)
+  })
+
+/////////////// PUNCH ///////////////////////////////////////////////
+
+  socket.on('P1 punches', (punchP2Health, punchP1Coin, punchP1OP) => {
+    io.emit(`P1 punches`, punchP2Health, punchP1Coin, punchP1OP)
+  })
+  socket.on('P2 punches', (punchP1Health, punchP2Coin, punchP2OP) => {
+    io.emit(`P2 punches`, punchP1Health, punchP2Coin, punchP2OP)
+  })
+
+/////////////// MUD ///////////////////////////////////////////////
+  socket.on('P1 muds', (mudP2Health, mudP1Coin, mudP1OP) => {
+    io.emit(`P1 muds`, mudP2Health, mudP1Coin, mudP1OP)
+  })
+
+  socket.on('P2 muds', (mudP1Health, mudP2Coin, mudP2OP) => {
+    io.emit(`P2 muds`, mudP1Health, mudP2Coin, mudP2OP)
+  })
+
+/////////////// OVERFLOW //////////////////////////////////////
+  socket.on('P1 overflows', (overflowP1Coin, overflowP1OP) => {
+    io.emit('P1 overflows', overflowP1Coin, overflowP1OP)
+  })
+
+  socket.on('P2 overflows', (overflowP2Coin, overflowP2OP) => {
+    io.emit('P2 overflows', overflowP2Coin, overflowP2OP)
+  })
+
+/////////////// CACHE //////////////////////////////////////
+  socket.on('P1 coinrestore', (coinrestoreP1Coin, coinrestoreP1OP) => {
+    io.emit('P1 coinrestore', coinrestoreP1Coin, coinrestoreP1OP)
+  })
+
+  socket.on('P2 coinrestore', (coinrestoreP2Coin, coinrestoreP2OP) => {
+    io.emit('P2 coinrestore', coinrestoreP2Coin, coinrestoreP2OP)
   })
 
 
-  // socket.on('attacked health', (hp) => {
-  //   io.emit('attacked health', hp)
-  // })
-  //
-  // socket.on('healed health', (hp) => {
-  //   io.emit('healed health', hp)
-  // })
 
 
 
