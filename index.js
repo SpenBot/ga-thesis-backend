@@ -48,10 +48,6 @@ io.on('connection', (socket) => {
   })
 
 /////////////// TURNS ////////////////////////////////////////////
-  // socket.on('new Turn', (newTurn, newP1Coin, newP1OP, newP2Coin, newP2OP) => {
-  //   io.emit(`new Turn`, newTurn, newP1Coin, newP2OP, newP2Coin, newP2OP)
-  // })
-
   socket.on('new Turn', (newTurn) => {
     io.emit(`new Turn`, newTurn)
   })
