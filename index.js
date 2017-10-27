@@ -15,8 +15,8 @@ const server = http.createServer(app)
 const io = socketIO.listen(server)
 
 
-// server.listen(process.env.PORT || 4000, () => {
-server.listen(4000, () => {
+server.listen(process.env.PORT || 4000, () => {
+// server.listen(4000, () => {
     console.log("\n\tServer active. Listening on port 4000\n")
 })
 
