@@ -1,15 +1,20 @@
-// Express
+
+/////////////// CONFIGURATION //////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+
 const express = require('express')
 const app = express()
 const cors = require('cors')
 
 app.use(cors())
 
-// Socket.io
+/////////////// SOCKET CONFIG /////////////////////////////////////
 const http = require('http')
 const socketIO = require('socket.io')
 const server = http.createServer(app)
 const io = socketIO.listen(server)
+
+
 // server.listen(process.env.PORT || 4000, () => {
 server.listen(4000, () => {
     console.log("\n\tServer active. Listening on port 4000\n")
@@ -19,7 +24,7 @@ server.listen(4000, () => {
 
 
 
-
+/////////////// INDEX ROUTE ///////////////////////////////////////
 app.get("/", (req, res) => {
   res.send("Hello Monkey")
 })
@@ -27,7 +32,7 @@ app.get("/", (req, res) => {
 
 
 
-/////////////// SOCKET CONNECTION //////////////////////////////////
+/////////////// SOCKET EVENTS //////////////////////////////////////
 ////////////////////////////////////////////////////////////////////
 
 io.on('connection', (socket) => {
@@ -36,7 +41,6 @@ io.on('connection', (socket) => {
 /////////////// CHAT MESSAGES //////////////////////////////////////
 
   socket.on('chat message', (msg) => io.emit('chat message', msg))
-
 
 /////////////// PLAYERS ////////////////////////////////////////////
 
@@ -48,8 +52,8 @@ io.on('connection', (socket) => {
   })
 
 /////////////// TURNS ////////////////////////////////////////////
-  socket.on('new Turn', (newTurn) => {
-    io.emit(`new Turn`, newTurn)
+  socket.on('new Turn', (newTurn, newP1Coin, newP1OP, newP2Coin, newP2OP) => {
+    io.emit(`new Turn`, newTurn, newP1Coin, newP1OP, newP2Coin, newP2OP)
   })
 
 /////////////// SLAP ///////////////////////////////////////////////
